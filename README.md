@@ -7,4 +7,4 @@ Follow these steps:
 * Perform a 'vagrant up'
 * Connect to the vm that is to run foreman using: vagrant ssh foreman
 * Run 'sudo foreman-installer' and write down the details in the output to make use of the web UI
-* Run 'puppet agent --test' before accessing the web UI
+* Run 'sudo puppet agent --test' before accessing the web UI
