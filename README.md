@@ -6,4 +6,5 @@ Follow these steps:
 * Edit your local hosts file and add foreman.test as 192.168.1.2
 * Perform a 'vagrant up'
 * Connect to the vm that is to run foreman using: vagrant ssh foreman
-* Run 'sudo foreman-installer' and use the details in the output to make use of the web UI
+* Run 'sudo foreman-installer' and write down the details in the output to make use of the web UI
+* Run 'puppet agent --test' before accessing the web UI
