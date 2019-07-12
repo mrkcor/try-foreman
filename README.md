@@ -1,4 +1,4 @@
-h1. Introduction
+# Introduction
 With this project you have a playground to experiment with Foreman using Vagrant and VirtualBox (so install those before you get started!)
 
 Follow these steps:
