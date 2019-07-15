@@ -29,12 +29,12 @@ EOF
 
       # Install puppet
       apt-get -y install ca-certificates
-      cd /tmp && wget https://apt.puppetlabs.com/puppet5-release-bionic.deb
-      dpkg -i /tmp/puppet5-release-bionic.deb
+      cd /tmp && wget https://apt.puppet.com/puppet6-release-bionic.deb
+      dpkg -i /tmp/puppet6-release-bionic.deb
 
       # Enable the Foreman repo
-      echo "deb http://deb.theforeman.org/ bionic 1.20" | sudo tee /etc/apt/sources.list.d/foreman.list
-      echo "deb http://deb.theforeman.org/ plugins 1.20" | sudo tee -a /etc/apt/sources.list.d/foreman.list
+      echo "deb http://deb.theforeman.org/ bionic 1.22" | sudo tee /etc/apt/sources.list.d/foreman.list
+      echo "deb http://deb.theforeman.org/ plugins 1.22" | sudo tee -a /etc/apt/sources.list.d/foreman.list
       wget -q https://deb.theforeman.org/pubkey.gpg -O- | sudo apt-key add -
 
       # Enable the Ubuntu universe repo
@@ -64,6 +64,13 @@ EOF
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 EOF
+
+      # Install puppet
+      apt-get -y install ca-certificates
+      cd /tmp && wget https://apt.puppet.com/puppet6-release-bionic.deb
+      dpkg -i /tmp/puppet6-release-bionic.deb
+      apt-get update
+      apt-get -y install puppet-agent
     SHELL
   end
 
