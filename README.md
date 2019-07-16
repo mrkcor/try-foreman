@@ -12,6 +12,8 @@ Follow these steps:
 To enable you to work with the other vms do the following:
 
 * Connect to it using: vagrant ssh peon1 (or peon2)
+* Add the line 'server = foreman.test' to /etc/puppetlabs/puppet/puppet.conf
+* Run: sudo puppet resource service puppet ensure=running
 * Run: sudo puppet agent --test
 * Connect to the foreman vm with "vagrant ssh foreman" and sign the certificate for it with "sudo puppetserver ca sign --certname name", you can get the name with "sudo puppetserver ca list"
 * On peon1 (or peon2) type "sudo puppet agent --test" again, from that point on you can configure the host in foreman

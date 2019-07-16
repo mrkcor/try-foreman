@@ -5,7 +5,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-18.04"
 
   config.vm.define 'foreman' do |foreman|
-    foreman.vm.hostname = 'foreman'
+    foreman.vm.hostname = 'foreman.test'
     foreman.vm.network "private_network", ip: "192.168.1.2"
 
     foreman.vm.provider :virtualbox do |vb|
@@ -15,6 +15,7 @@ Vagrant.configure("2") do |config|
     foreman.vm.provision "shell", inline: <<-SHELL
       export DEBIAN_FRONTEND=noninteractive
       hostname foreman.test
+      echo 'foreman.test' > /etc/hostname
 
       # Update the hosts file
       cat > /etc/hosts <<EOF
@@ -47,12 +48,13 @@ EOF
   end
 
   config.vm.define 'peon1' do |peon1|
-    peon1.vm.hostname = 'peon1'
+    peon1.vm.hostname = 'peon1.test'
     peon1.vm.network "private_network", ip: "192.168.1.3"
 
     peon1.vm.provision "shell", inline: <<-SHELL
       export DEBIAN_FRONTEND=noninteractive
       hostname peon1.test
+      echo 'peon1.test' > /etc/hostname
 
       # Update the hosts file
       cat > /etc/hosts <<EOF
@@ -65,6 +67,9 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 EOF
 
+      # Enable the Ubuntu universe repo
+      add-apt-repository universe
+
       # Install puppet
       apt-get -y install ca-certificates
       cd /tmp && wget https://apt.puppet.com/puppet5-release-bionic.deb
@@ -75,12 +80,13 @@ EOF
   end
 
   config.vm.define 'peon2' do |peon2|
-    peon2.vm.hostname = 'peon2'
+    peon2.vm.hostname = 'peon2.test'
     peon2.vm.network "private_network", ip: "192.168.1.4"
 
     peon2.vm.provision "shell", inline: <<-SHELL
       export DEBIAN_FRONTEND=noninteractive
       hostname peon2.test
+      echo 'peon2.test' > /etc/hostname
 
       # Update the hosts file
       cat > /etc/hosts <<EOF
@@ -93,6 +99,9 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 EOF
 
+      # Enable the Ubuntu universe repo
+      add-apt-repository universe
+
       # Install puppet
       apt-get -y install ca-certificates
       cd /tmp && wget https://apt.puppet.com/puppet5-release-bionic.deb
@@ -101,9 +110,4 @@ EOF
       apt-get -y install puppet-agent
     SHELL
   end
-
-  config.vm.provision "shell", inline: <<-SHELL
-    export DEBIAN_FRONTEND=noninteractive
-    apt-get update && apt-get -o Dpkg::Options::=--force-confold -o Dpkg::Options::=--force-confdef -y dist-upgrade
-  SHELL
 end
